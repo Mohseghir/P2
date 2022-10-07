@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 url = 'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
 
@@ -9,14 +10,12 @@ print(url)
 
 soup = BeautifulSoup(response.text, 'html.parser')
 
-# trs = soup.findAll('tr')
-# [print(str(tr) + '\n' ) for tr in trs]
-
 all_infos = soup.find_all("td")
 infos = []
 for info in all_infos:
     infos.append(info.string)
-print(infos)
+print(infos) #avoir toutes les info pour un livre
+
 UPC = infos[0]
 print(UPC)
 title = soup.find('article').h1.text
@@ -42,6 +41,17 @@ print(review_rating)
 main_url = 'http://books.toscrape.com/'
 image_url = soup.find('img')['src'].replace('../../', main_url)
 print(image_url)
+
+# creation du fichier CSV avec toutes les info en entete
+en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
+with open('book_infos.csv', 'w') as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
+    writer.writerow(en_tete)
+    writer.writerow([url, UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url])
+
+# (à utiliser plus tard ) zip permet d'itérer sur plusieure liste listes à la fois
+#for url, UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url in zip(url,UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url):
+
 """"
 
 
