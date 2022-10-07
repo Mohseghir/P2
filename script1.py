@@ -9,28 +9,51 @@ print(url)
 
 soup = BeautifulSoup(response.text, 'html.parser')
 
-#trs = soup.findAll('tr')
-#[print(str(tr) + '\n' ) for tr in trs]
-"""
-tds = soup.findAll('td')
-for td in tds:
-	a = str(td)
-	for a in range(4, -5):
-		print(a) 
-"""
-titres_bs = soup.find_all("td")
-titres = []
-for titre in titres_bs:
-    titres.append(titre.string)
-print(titres[3])
-"""
+# trs = soup.findAll('tr')
+# [print(str(tr) + '\n' ) for tr in trs]
+
+all_infos = soup.find_all("td")
+infos = []
+for info in all_infos:
+    infos.append(info.string)
+print(infos)
+UPC = infos[0]
+print(UPC)
+title = soup.find('article').h1.text
+print(title)
+product_description = soup.find('article').find('p', recursive = False).text #recursive=false renvoir le premier 'child' qui s'appel 'p' dans article
+#print(product_description)
+
+price_excluding_tax = infos[2]
+print(price_excluding_tax)
+
+price_including_tax = infos[3]
+print(price_including_tax)
+
+number_available = infos[5]
+print(number_available)
+
+category = soup.find_all("a")[3].text #sortir le 4eme "a" trouvé
+print(category)
+
+review_rating = infos[6]
+print(review_rating)
+
+main_url = 'http://books.toscrape.com/'
+image_url = soup.find('img')['src'].replace('../../', main_url)
+print(image_url)
+""""
+
+
+
+image_url = infos[]
+
+
 for tr in trs:
 	a = tr.find('td.str')
 	info = str('a')
 print(info)
-"""
 
-"""
 Objectif du projet : suivre les prix des livre sur : Books to scrape
 
 1ere étape, choisir la page d'un seul produit et
@@ -45,12 +68,12 @@ créer un fichier csv qui a comme en-tête:
 # category
 # review_rating
 # image_url
-"""
+
 # j'importe requests et bs4
 #universal_ product_code = soup.find_all("UPC", class_="table table-striped")
 #print(niversal_ product_code)
 
-"""
+
 2-faire la meme chose pour une catégorie de livre 
 
 remarque : plusieurs page dans une mm cathégorie 
