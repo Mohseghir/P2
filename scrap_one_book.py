@@ -6,48 +6,66 @@ url = 'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
 
 response = requests.get(url)
 
-print(url)
+#print(url)
 
 soup = BeautifulSoup(response.text, 'html.parser')
 
 all_infos = soup.find_all("td")
 infos = []
 for info in all_infos:
-    infos.append(info.string)
-print(infos) #avoir toutes les info pour un livre
-
+	infos.append(info.string)
+#print(infos) #avoir toutes les info pour un livre
 UPC = infos[0]
-print(UPC)
+#print(UPC)
 title = soup.find('article').h1.text
-print(title)
+price_excluding_tax = infos[2]
+#print(price_excluding_tax)
+price_including_tax = infos[3]
+#print(price_including_tax)
+number_available = infos[5]
+#print(number_available)
+review_rating = infos[6]
+#print(review_rating)
 product_description = soup.find('article').find('p', recursive = False).text #recursive=false renvoir le premier 'child' qui s'appel 'p' dans article
 #print(product_description)
-
-price_excluding_tax = infos[2]
-print(price_excluding_tax)
-
-price_including_tax = infos[3]
-print(price_including_tax)
-
-number_available = infos[5]
-print(number_available)
-
 category = soup.find_all("a")[3].text #sortir le 4eme "a" trouvé
-print(category)
-
-review_rating = infos[6]
-print(review_rating)
-
+#print(category)
 main_url = 'http://books.toscrape.com/'
 image_url = soup.find('img')['src'].replace('../../', main_url)
-print(image_url)
+#print(image_url)
 
 # creation du fichier CSV avec toutes les info en entete
 en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available', 'product_description', 'category', 'review_rating', 'image_url']
 with open('book_infos.csv', 'w') as csv_file:
-    writer = csv.writer(csv_file, delimiter=',')
-    writer.writerow(en_tete)
-    writer.writerow([url, UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url])
+	writer = csv.writer(csv_file, delimiter=',')
+	writer.writerow(en_tete)
+	writer.writerow([url, UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url])
+
+#2 def des  fonctions qui permettent de recuperer automatiquement les elements ci dessus
+
+
+#3 recuperer tout les url d'une categorie , S'il y a un lien "next" sur la page, le script doit visiter ce lien et extraire
+#les informations de cette page.
+
+
+
+
+
+'''
+#Grabbing the link of each book
+for link in article.find_all('a',href = True):
+    url = link['href']
+    Books_url.append('https://books.toscrape.com/catalogue/' + url)
+#print(Books_url)  
+
+
+
+
+
+
+
+
+
 
 # (à utiliser plus tard ) zip permet d'itérer sur plusieure liste listes à la fois
 #for url, UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url in zip(url,UPC, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url):
@@ -100,5 +118,4 @@ ecrire un fichier csv pour chaque catégorie
 7- ecrire un README.md
 
 Python 
-"""
-
+'''
