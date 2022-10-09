@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from scrap_one_book import book_info
 
-url = 'http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html'
+url = 'https://books.toscrape.com/catalogue/category/books/add-a-comment_18/index.html'
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 # recuperer les lien d'une page
@@ -26,9 +26,18 @@ def book_list(soup):
 url_book_list = book_list(soup)
 print(url_book_list)
 print(len(url_book_list))
-
-
-
+# etendre sur toute les page de la category
+if len(url_book_list) == 20:
+    page_next = soup.find("ul", "pager").find("li", "next")
+    page_number = 1
+    while page_next:
+        page_number += 1
+        page_url = url.replace("index.html", f"page-{page_number}.html")
+        page = requests.get(page_url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        url_book_list.extend(book_list(soup))
+        page_next = soup.find("ul", "pager").find("li", "next")
+print(url_book_list)
 
 with open('book_infos.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
