@@ -7,10 +7,6 @@ from scrap_one_book import book_info
 url = 'https://books.toscrape.com/catalogue/category/books/add-a-comment_18/index.html'
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
-# recuperer les lien d'une page
-page_url = []
-urls_category = []
-urls = []
 
 
 # def une fonction pour extraire les liens d'une seule page
@@ -26,20 +22,30 @@ def book_list(soup):
 url_book_list = book_list(soup)
 print(url_book_list)
 print(len(url_book_list))
-# etendre sur toute les page de la category
-if len(url_book_list) == 20:
-    page_next = soup.find("ul", "pager").find("li", "next")
-    page_number = 1
-    while page_next:
-        page_number += 1
-        page_url = url.replace("index.html", f"page-{page_number}.html")
-        page = requests.get(page_url)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        url_book_list.extend(book_list(soup))
+
+
+# def de la fonction qui etend le chargement des listes sur toute les pages de une categorie
+def all_category_list(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    url_book_list = book_list(soup)
+    if len(url_book_list) == 20:
         page_next = soup.find("ul", "pager").find("li", "next")
+        page_number = 1
+        while page_next:
+            page_number += 1
+            page_url = url.replace("index.html", f"page-{page_number}.html")
+            page = requests.get(page_url)
+            soup = BeautifulSoup(page.content, 'html.parser')
+            url_book_list.extend(book_list(soup))
+            page_next = soup.find("ul", "pager").find("li", "next")
+    return url_book_list
+
+
+url_book_list = all_category_list(url)
 print(url_book_list)
 
-with open('book_infos.csv', 'w') as csv_file:
+with open('one_category_infos.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
     en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available',
                'product_description', 'category', 'review_rating', 'image_url']
