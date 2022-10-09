@@ -5,22 +5,30 @@ from bs4 import BeautifulSoup
 from scrap_one_book import book_info
 
 url = 'http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html'
-
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 # recuperer les lien d'une page
-url_book_list = []
 page_url = []
 urls_category = []
 urls = []
 
-#extraire les liens d'une seule page
-h3s = soup.findAll("h3")
-for h3 in h3s:
-    link = h3.find("a")["href"].replace("../../..", "http://books.toscrape.com/catalogue")
-    url_book_list.append(link)
+
+# def une fonction pour extraire les liens d'une seule page
+def book_list(soup):
+    url_book_list = []
+    h3s = soup.findAll("h3")
+    for h3 in h3s:
+        link = h3.find("a")["href"].replace("../../..", "http://books.toscrape.com/catalogue")
+        url_book_list.append(link)
+    return url_book_list
+
+
+url_book_list = book_list(soup)
 print(url_book_list)
 print(len(url_book_list))
+
+
+
 
 with open('book_infos.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
