@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = 'http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
+url = 'http://books.toscrape.com/catalogue/alice-in-wonderland-alices-adventures-in-wonderland-1_5/index.html'
 
 
 def book_info(url):
@@ -20,7 +20,13 @@ def book_info(url):
     price_including_tax = infos[3]
     number_available = infos[5]
     review_rating = infos[6]
-    product_description = soup.find('article').find('p', recursive=False).text
+    # suite à la remarque que certain livre n'ont pas de description
+    descrip = soup.find('article').find('p', recursive=False)
+    if descrip is not None:
+        product_description = descrip.text
+    else:
+        product_description = None
+
     category = soup.find_all("a")[3].text
     main_url = 'http://books.toscrape.com/'
     image_url = soup.find('img')['src'].replace('../../', main_url)
@@ -28,6 +34,7 @@ def book_info(url):
 
 
 # creation du fichier CSV avec toutes les info en entete
+"""
 en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available',
            'product_description', 'category', 'review_rating', 'image_url']
 with open('book_infos.csv', 'w') as csv_file:
@@ -37,3 +44,4 @@ with open('book_infos.csv', 'w') as csv_file:
     writer.writerow(
         [csv_data[0], csv_data[1], csv_data[2], csv_data[3], csv_data[4], csv_data[5], csv_data[6], csv_data[7],
          csv_data[8], csv_data[9]])
+"""

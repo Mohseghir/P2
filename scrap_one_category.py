@@ -20,8 +20,8 @@ def book_list(soup):
 
 
 url_book_list = book_list(soup)
-print(url_book_list)
-print(len(url_book_list))
+#print(url_book_list)
+#print(len(url_book_list))
 
 
 # def de la fonction qui etend le chargement des listes sur toute les pages de une categorie
@@ -43,8 +43,9 @@ def all_category_list(url):
 
 
 url_book_list = all_category_list(url)
-print(url_book_list)
+#print(url_book_list)
 
+"""
 with open('one_category_infos.csv', 'w') as csv_file:
     writer = csv.writer(csv_file, delimiter=',')
     en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available',
@@ -56,3 +57,4 @@ with open('one_category_infos.csv', 'w') as csv_file:
             [csv_books_data[0], csv_books_data[1], csv_books_data[2], csv_books_data[3], csv_books_data[4],
              csv_books_data[5], csv_books_data[6], csv_books_data[7],
              csv_books_data[8], csv_books_data[9]])
+"""
