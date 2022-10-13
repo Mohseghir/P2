@@ -2,8 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = 'http://books.toscrape.com/catalogue/alice-in-wonderland-alices-adventures-in-wonderland-1_5/index.html'
-
+url = 'http://books.toscrape.com/catalogue/its-only-the-himalayas_981/index.html'
 
 def book_info(url):
     response = requests.get(url)
@@ -34,7 +33,7 @@ def book_info(url):
 
 
 # creation du fichier CSV avec toutes les info en entete
-"""
+""""
 en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available',
            'product_description', 'category', 'review_rating', 'image_url']
 with open('book_infos.csv', 'w') as csv_file:
