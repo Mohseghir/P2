@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = 'http://books.toscrape.com/catalogue/its-only-the-himalayas_981/index.html'
+url = 'http://books.toscrape.com/catalogue/vagabonding-an-uncommon-guide-to-the-art-of-long-term-world-travel_552/index.html'
+
 
 def book_info(url):
     response = requests.get(url)
