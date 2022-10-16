@@ -19,7 +19,7 @@ def book_list(soup):
     return url_book_list
 
 
-# def de la fonction qui etend le chargement des listes sur toute les pages de une categorie
+# def de la fonction qui étend le chargement des listes sur toutes les pages d'une catégorie
 def all_category_list(url):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -40,7 +40,7 @@ def all_category_list(url):
             soup = BeautifulSoup(page.content, 'html.parser')
             url_book_list.extend(book_list(soup))
             page_next = soup.find("ul", "pager").find("li", "next")
-    # exploiter la generation des lien pour integer les résultats dans des dossiers au fur et à mesure de l'avancement du code
+    # exploiter la génération des liens pour intégrer les résultats dans des dossiers au fur et à mesure de l'avancement du code
     new_dir.mkdir(parents=True, exist_ok=True)
     new_image_dir.mkdir(parents=True, exist_ok=True)
     with open(new_dir / category_name, 'w') as csv_file:
@@ -55,7 +55,7 @@ def all_category_list(url):
                  csv_books_data[5], csv_books_data[6], csv_books_data[7],
                  csv_books_data[8], csv_books_data[9]])
             img_data = requests.get(csv_books_data[9]).content
-            # certain titre de livre contients '/' ce qui pose problème avec les paths
+            # certains titres de livres contiennient '/' ce qui pose problème avec les paths
             image_name = csv_books_data[2].replace('/', '-') + ".png"
             with open(new_image_dir / image_name, 'wb') as handler:
                 handler.write(img_data)

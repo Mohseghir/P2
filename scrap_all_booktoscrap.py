@@ -6,14 +6,14 @@ url = "https://books.toscrape.com/"
 page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 
-# trouver la liste de toutes les catégorie
+# trouver la liste de toutes les catégories
 all_category_list_list = []
 lis = soup.find("ul", {"class": "nav nav-list"}).find("ul").findAll("li")
 for li in lis:
     link = url + li.find("a")["href"]
     all_category_list_list.append(link)
 print(all_category_list_list)
-# exploiter la fonction all_category_list pour extraire les infos et les images de tout les livres
+# exploiter la fonction all_category_list pour extraire les infos et les images de tous les livres
 all_website_book_list = []
 for url_category in all_category_list_list:
     category_book_list = all_category_list(url_category)

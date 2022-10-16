@@ -7,8 +7,8 @@ Programme d'extraction des prix du site http://books.toscrape.com/ avec Python
 
 Pour utiliser l'outil il vous faut :
 
-- Python 3.10 depuis https://www.python.org/
-- Git
+- Python 3.10 depuis https://www.python.org/.
+- Git.
 - un compte Github.
 
 

@@ -12,7 +12,7 @@ def book_info(url):
     infos = []
     for info in all_infos:
         infos.append(info.string)
-    # avoir toutes les info pour un livre
+    # avoir toutes les infos pour un livre
     product_page_url = url
     upc = infos[0]
     title = soup.find('article').h1.text
@@ -20,7 +20,7 @@ def book_info(url):
     price_including_tax = infos[3]
     number_available = infos[5]
     review_rating = infos[6]
-    # suite à la remarque que certain livre n'ont pas de description
+    # suite à la remarque que certains livres n'ont pas de description
     descrip = soup.find('article').find('p', recursive=False)
     if descrip is not None:
         product_description = descrip.text
@@ -33,7 +33,7 @@ def book_info(url):
     return product_page_url, upc, title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url
 
 
-# creation du fichier CSV avec toutes les info en entete
+# création du fichier CSV avec toutes les infos en entête
 """"
 en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available',
            'product_description', 'category', 'review_rating', 'image_url']
