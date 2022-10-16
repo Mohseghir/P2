@@ -16,18 +16,26 @@ Installation
 
 Téléchargez le repository en utilisant la commande suivante : git clone https://https://github.com/Mohseghir/P2
 
-Positionnez-vous dans le répertoire de l'application en utilisant la commande suivante : cd P2
+Positionnez-vous dans le dossier : P2
 
-Activez l'environnement virtuel en utilisant les commandes suivantes :
+Activez l'environnement virtuel en utilisant :
 
 `python3 -m venv env`
+
 `source env/bin/activate`
-Installez les modules nécessaire au fonctionnement de l'application en utlisant la commande suivante :
+
+Installez les modules nécessaires en utilisant :
 
 `pip3 install -r requirements.txt`
 
-Exacution: 
-Lancez la commande : python3 scrap_all_booktoscrap.py depuis votre un terminal. (pour Windows utilisez `py scrap_all_booktoscrap.py)
+Execution: 
+
+
+Lancez la commande : `python3 scrap_all_booktoscrap.py` depuis votre terminal. (pour Windows utilisez `py scrap_all_booktoscrap.py`)
 
 Output:
-A la fin du processus, un dossier "data" sera crée avec un sous-dossier par catégorie. ce dernier contient le fichier csv de la catégorie ainsi qu'un dossier images contenant Les images de tout les lives de la catégorie.
+
+
+A la fin du processus, un dossier "data" sera crée avec un sous-dossier par catégorie. 
+
+Ce dernier contient le fichier csv de la catégorie, ainsi qu'un dossier images avec les images de tous les livres de la dite catégorie.
