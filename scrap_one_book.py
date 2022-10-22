@@ -7,7 +7,7 @@ url = 'http://books.toscrape.com/catalogue/vagabonding-an-uncommon-guide-to-the-
 
 def book_info(url):
     response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.text.encode('utf8').decode('ascii', 'ignore'), 'html.parser')
     all_infos = soup.find_all("td")
     infos = []
     for info in all_infos:
@@ -34,7 +34,7 @@ def book_info(url):
 
 
 # création du fichier CSV avec toutes les infos en entête
-""""
+
 en_tete = ['product_page_url', 'UPC', 'title', 'price_including_tax', 'price_excluding_tax', 'number_available',
            'product_description', 'category', 'review_rating', 'image_url']
 with open('book_infos.csv', 'w') as csv_file:
@@ -44,4 +44,3 @@ with open('book_infos.csv', 'w') as csv_file:
     writer.writerow(
         [csv_data[0], csv_data[1], csv_data[2], csv_data[3], csv_data[4], csv_data[5], csv_data[6], csv_data[7],
          csv_data[8], csv_data[9]])
-"""
